@@ -1,0 +1,7 @@
+{
+  "agents": [
+    { "id": "general", "name": "General", "personality": "personalities/general.md", "skills": ["reasoning", "research"] },
+    { "id": "coder", "name": "Coder", "personality": "personalities/coder.md", "skills": ["coding", "deployment"] },
+    { "id": "researcher", "name": "Researcher", "personality": "personalities/researcher.md", "skills": ["research", "reasoning"] }
+  ]
+}
