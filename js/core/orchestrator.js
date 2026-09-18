@@ -1,0 +1,2 @@
+import { TaskEngine } from "./task-engine.js";
+export class Orchestrator{constructor(options={}){this.engine=new TaskEngine(options)}async run(request){if(!request?.input?.trim())throw new Error("ต้องมีข้อความ");return this.engine.execute({type:"chat",input:request.input.trim()})}}
