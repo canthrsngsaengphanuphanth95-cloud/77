@@ -1,0 +1,1 @@
+export class PuterBackend{constructor(options={}){this.options=options}async chat(input){const puter=globalThis.puter;if(!puter?.ai?.chat)return "ยังไม่ได้เชื่อมต่อ Puter AI: กรุณาโหลด Puter SDK ก่อนใช้งาน";const result=await puter.ai.chat(input,this.options);return typeof result==="string"?result:(result?.message?.content??result?.text??JSON.stringify(result))}}
