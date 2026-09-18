@@ -1,1 +1,72 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Grok Chat — AI Assistant</title><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg"><script src="https://js.puter.com/v2/"></script><link rel="stylesheet" href="css/styles.css"></head><body><div id="app"><aside id="sidebar"><div class="brand">✦ <b>Grok Chat</b><button id="closeSidebar">×</button></div><button id="newChatBtn" class="primary">＋ บทสนทนาใหม่</button><input id="searchInput" placeholder="ค้นหาบทสนทนา"><nav id="convList"></nav><div id="authBox"></div></aside><main><header><button id="openSidebar">☰</button><div><b id="chatTitle">บทสนทนาใหม่</b><small id="chatMeta">ยังไม่ได้บันทึก</small></div><div class="header-actions"><button id="tabChat" class="tab-btn active">Chat</button><button id="tabView" class="tab-btn">View <span id="viewBadge"></span></button><select id="modelSelect"></select><button id="clearBtn">🗑</button></div></header><section id="messages"></section><section id="viewPane" hidden><div class="viewbar"><select id="artifactSelect"></select><button id="artCopy">คัดลอก</button><button id="artDownload">ดาวน์โหลด</button><button id="artNewTab">แท็บใหม่</button></div><div id="viewBody"></div></section><footer><div id="modeRow"></div><div class="composer"><textarea id="input" rows="1" placeholder="ส่งข้อความถึง Grok…"></textarea><div class="tools"><button id="streamToggle">⚡ สตรีมมิ่ง</button><span id="tokenHint"></span><button id="stopBtn" hidden>หยุด</button><button id="sendBtn" class="primary">ส่ง</button></div></div></footer></main></div><div id="toast" class="toast" hidden></div><script type="module" src="js/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grok Chat — AI Assistant</title>
+<script>
+window.onerror=function(msg,src,line,col,err){window.parent.postMessage({type:'app-error',message:msg,source:src,lineno:line,colno:col,stack:err&&err.stack||''},'*');};
+window.onunhandledrejection=function(e){window.parent.postMessage({type:'app-error',message:'Unhandled promise rejection: '+(e.reason&&e.reason.message||e.reason||'unknown'),stack:e.reason&&e.reason.stack||''},'*');};
+window.addEventListener('error',function(e){var t=e&&e.target;if(t&&t!==window&&t.tagName==='SCRIPT'){var u=t.src||'';window.parent.postMessage({type:'app-error',message:'Failed to load script'+(u?': '+u:' (inline module)'),source:u},'*');}},true);
+(function(){var _f=window.fetch;window.fetch=function(){var a=arguments,u=typeof a[0]==='string'?a[0]:(a[0]&&a[0].url)||'';var p=_f.apply(this,a);p.then(function(r){if(r.status===500){r.clone().text().then(function(b){window.parent.postMessage({type:'fetch-error',url:u,status:500,body:b},'*');}).catch(function(){window.parent.postMessage({type:'fetch-error',url:u,status:500,body:''},'*');});}}).catch(function(e){window.parent.postMessage({type:'fetch-error',url:u,status:0,body:e.message||'fetch failed'},'*');});return p;};})();
+</script>
+<script src="https://builder.puter.com/runtime.js" defer></script>
+<meta name="description" content="A clean AI chat workspace powered by Grok, with fast, deep and multi-agent answer modes and a live code view.">
+<meta name="theme-color" content="#4f46e5">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://js.puter.com/v2/"></script>
+<link rel="stylesheet" href="css/styles.css">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter', 'IBM Plex Sans Thai', 'system-ui', 'sans-serif'] },
+      colors: {
+        ink: { 50:'#f7f7f8',100:'#ececee',200:'#d9d9de',300:'#b8b8c0',400:'#8e8e9a',500:'#6b6b78',600:'#52525c',700:'#3f3f46',800:'#27272b',900:'#18181b',950:'#0e0e10' }
+      }
+    }
+  }
+}
+</script>
+    <!-- puter-pwa: generated, do not edit -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Grok Chat">
+    <!-- /puter-pwa -->
+</head>
+<body class="h-full bg-white text-ink-900 font-sans antialiased">
+<div id="app" class="flex h-screen w-screen overflow-hidden">
+  <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-72 shrink-0 -translate-x-full lg:translate-x-0 transition-transform duration-200 bg-ink-50 border-r border-ink-200 flex flex-col">
+    <div class="h-14 flex items-center gap-2 px-4 border-b border-ink-200"><div class="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4 text-white"></i></div><span class="font-semibold tracking-tight">Grok Chat</span><button id="closeSidebar" class="ml-auto lg:hidden p-1.5 rounded-md hover:bg-ink-200/60"><i data-lucide="x" class="w-4 h-4"></i></button></div>
+    <div class="p-3"><button id="newChatBtn" class="w-full flex items-center justify-center gap-2 h-10 rounded-lg bg-ink-900 text-white text-sm font-medium hover:bg-ink-800 transition"><i data-lucide="plus" class="w-4 h-4"></i> บทสนทนาใหม่</button></div>
+    <div class="px-3 pb-2"><div class="relative"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-ink-400"></i><input id="searchInput" type="text" placeholder="ค้นหาบทสนทนา" class="w-full h-9 pl-9 pr-3 rounded-lg bg-white border border-ink-200 text-sm outline-none focus:border-indigo-500"></div></div>
+    <nav id="convList" class="flex-1 overflow-y-auto px-2 pb-2 space-y-0.5 scroll-thin"></nav>
+    <div class="border-t border-ink-200 p-3"><div id="authBox"></div></div>
+  </aside>
+  <div id="overlay" class="fixed inset-0 z-30 bg-ink-900/30 hidden lg:hidden"></div>
+  <main class="flex-1 flex flex-col min-w-0">
+    <header class="h-14 shrink-0 flex items-center gap-3 px-4 border-b border-ink-200 bg-white/80 backdrop-blur">
+      <button id="openSidebar" class="lg:hidden p-2 -ml-2 rounded-md hover:bg-ink-100"><i data-lucide="menu" class="w-5 h-5"></i></button>
+      <div class="min-w-0"><h1 id="chatTitle" class="text-sm font-semibold truncate">บทสนทนาใหม่</h1><p id="chatMeta" class="text-xs text-ink-400 truncate">ยังไม่ได้บันทึก</p></div>
+      <div class="ml-auto flex items-center gap-2">
+        <div class="flex items-center p-0.5 rounded-lg bg-ink-100"><button id="tabChat" data-tab="chat" class="tab-btn flex items-center gap-1.5 h-8 px-3 rounded-md text-xs font-medium transition"><i data-lucide="message-square" class="w-3.5 h-3.5"></i> Chat</button><button id="tabView" data-tab="view" class="tab-btn flex items-center gap-1.5 h-8 px-3 rounded-md text-xs font-medium transition"><i data-lucide="layout-panel-left" class="w-3.5 h-3.5"></i> View <span id="viewBadge" class="hidden ml-0.5 min-w-4 h-4 px-1 grid place-items-center rounded bg-indigo-600 text-white text-[10px] font-semibold">0</span></button></div>
+        <div class="relative"><button id="modelBtn" class="flex items-center gap-2 h-9 px-3 rounded-lg border border-ink-200 text-sm hover:bg-ink-50 transition"><i data-lucide="cpu" class="w-4 h-4 text-ink-500"></i><span id="modelLabel" class="hidden sm:inline font-medium">Grok 4.6</span><i data-lucide="chevron-down" class="w-4 h-4 text-ink-400"></i></button><div id="modelMenu" class="hidden absolute right-0 mt-2 w-64 z-20 bg-white border border-ink-200 rounded-xl p-1.5 max-h-80 overflow-y-auto scroll-thin"></div></div>
+        <button id="clearBtn" title="ลบบทสนทนานี้" class="h-9 w-9 grid place-items-center rounded-lg border border-ink-200 hover:bg-ink-50 transition"><i data-lucide="trash-2" class="w-4 h-4 text-ink-500"></i></button>
+      </div>
+    </header>
+    <div id="messages" class="flex-1 overflow-y-auto scroll-thin"></div>
+    <div id="viewPane" class="hidden flex-1 min-h-0 flex-col">
+      <div class="h-12 shrink-0 flex items-center gap-2 px-4 border-b border-ink-200 bg-ink-50"><div class="relative"><button id="artifactBtn" class="flex items-center gap-2 h-8 px-2.5 rounded-lg border border-ink-200 bg-white text-xs font-medium hover:bg-ink-50 transition max-w-[46vw]"><i data-lucide="file-code-2" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i><span id="artifactLabel" class="truncate">ไม่มีผลลัพธ์</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 text-ink-400 shrink-0"></i></button><div id="artifactMenu" class="hidden absolute left-0 mt-2 w-72 z-20 bg-white border border-ink-200 rounded-xl p-1.5 max-h-72 overflow-y-auto scroll-thin"></div></div><div id="renderSwitch" class="hidden items-center p-0.5 rounded-lg bg-ink-200/70"><button id="subPreview" data-sub="preview" class="sub-btn h-7 px-2.5 rounded-md text-[11px] font-medium transition">พรีวิว</button><button id="subCode" data-sub="code" class="sub-btn h-7 px-2.5 rounded-md text-[11px] font-medium transition">โค้ด</button></div><div class="ml-auto flex items-center gap-1.5"><button id="artCopy" title="คัดลอก" class="h-8 w-8 grid place-items-center rounded-lg border border-ink-200 bg-white hover:bg-ink-50 transition"><i data-lucide="copy" class="w-3.5 h-3.5 text-ink-500"></i></button><button id="artDownload" title="ดาวน์โหลด" class="h-8 w-8 grid place-items-center rounded-lg border border-ink-200 bg-white hover:bg-ink-50 transition"><i data-lucide="download" class="w-3.5 h-3.5 text-ink-500"></i></button><button id="artNewTab" title="เปิดแท็บใหม่" class="h-8 w-8 grid place-items-center rounded-lg border border-ink-200 bg-white hover:bg-ink-50 transition"><i data-lucide="external-link" class="w-3.5 h-3.5 text-ink-500"></i></button></div></div>
+      <div id="viewBody" class="flex-1 min-h-0 overflow-auto scroll-thin bg-white"></div>
+    </div>
+    <div class="shrink-0 border-t border-ink-200 bg-white"><div class="max-w-3xl mx-auto px-4 py-3"><div id="modeRow" class="flex items-center gap-1.5 mb-2 overflow-x-auto scroll-thin pb-0.5"></div><div id="composer" class="rounded-2xl border border-ink-200 focus-within:border-indigo-500 transition bg-white"><textarea id="input" rows="1" placeholder="ส่งข้อความถึง Grok…" class="w-full resize-none bg-transparent px-4 pt-3 pb-1 text-[15px] leading-6 outline-none max-h-52 scroll-thin"></textarea><div class="flex items-center gap-2 px-3 pb-2.5"><button id="streamToggle" class="flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-xs font-medium hover:bg-ink-100 transition"><i data-lucide="zap" class="w-3.5 h-3.5"></i> สตรีมมิ่ง</button><span id="tokenHint" class="text-xs text-ink-400 hidden sm:inline"></span><div class="ml-auto flex items-center gap-2"><button id="stopBtn" class="hidden h-9 px-3 rounded-lg border border-ink-200 text-sm font-medium hover:bg-ink-50 transition"><i data-lucide="square" class="w-3.5 h-3.5 inline -mt-0.5"></i> หยุด</button><button id="sendBtn" class="h-9 w-9 grid place-items-center rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-40 disabled:hover:bg-indigo-600 transition"><i data-lucide="arrow-up" class="w-4 h-4"></i></button></div></div></div><p id="modeHint" class="text-[11px] text-ink-400 text-center mt-2">AI อาจให้ข้อมูลผิดพลาดได้ — ควรตรวจสอบข้อมูลสำคัญอีกครั้ง</p></div></div>
+  </main>
+</div>
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] hidden px-4 py-2.5 rounded-lg bg-ink-900 text-white text-sm"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
