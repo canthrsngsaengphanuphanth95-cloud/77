@@ -1,0 +1,8 @@
+import { WorkerManager } from "./worker-manager.js";
+export class TaskEngine {
+  constructor(options = {}) { this.workers = new WorkerManager(options); }
+  execute(task) {
+    if (task.type !== "chat") throw new Error("ไม่รองรับ task: " + task.type);
+    return this.workers.dispatch(task);
+  }
+}

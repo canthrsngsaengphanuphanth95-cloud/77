@@ -1,0 +1,1 @@
+{"name":"xboss123","private":true,"type":"module","scripts":{"test":"node tests/core.test.js"}}

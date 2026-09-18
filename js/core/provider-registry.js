@@ -1,0 +1,2 @@
+import { PuterBackend } from "./puter-backend.js";
+export class ProviderRegistry{constructor(options={}){this.providers={puter:new PuterBackend(options.puter)}}get(name){const provider=this.providers[name];if(!provider)throw new Error("ไม่พบ provider: "+name);return provider}}
