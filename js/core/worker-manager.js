@@ -1,2 +1,5 @@
 import { ProviderRegistry } from "./provider-registry.js";
-export class WorkerManager{constructor(options={}){this.providers=new ProviderRegistry(options)}async dispatch(task){return this.providers.get("puter").chat(task.input)}}
+export class WorkerManager {
+  constructor(options = {}) { this.providers = new ProviderRegistry(options); }
+  dispatch(task) { return this.providers.get("puter").chat(task.messages, task.options || {}); }
+}
