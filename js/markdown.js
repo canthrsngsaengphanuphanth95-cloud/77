@@ -1,1 +1,0 @@
-const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');export function renderMarkdown(s){let t=esc(s||'');t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');t=t.replace(/\*([^*\n]+)\*/g,'<em>$1</em>');t=t.replace(/\n/g,'<br>');return t}export const plainText=s=>String(s||'');

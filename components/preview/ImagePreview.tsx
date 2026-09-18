@@ -1,1 +1,0 @@
-export default function ImagePreview({ src, alt }: { src: string; alt: string }) { return <div className="preview-media"><img src={src} alt={alt} style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain' }} /></div>; }
