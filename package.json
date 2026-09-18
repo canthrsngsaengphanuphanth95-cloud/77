@@ -1,1 +1,9 @@
-{"name":"xboss123","private":true,"type":"module","scripts":{"test":"node tests/core.test.js"}}
+{
+  "name": "xboss123",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo Static site: no build step required",
+    "test": "node tests/core.test.js"
+  }
+}
